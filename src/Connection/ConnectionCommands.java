@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JFrame;  
  
 
 /**
@@ -13,10 +14,10 @@ import java.sql.SQLException;
  */
 public class ConnectionCommands {
     static Connection _con = null ; 
-    static Statement _stt = null; 
+    static Statement _stt = null;
     
     
-    public void Conector(){    
+    public Connection CreateConnection(){    
         try {
             _con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/dbinfoq",
@@ -24,6 +25,7 @@ public class ConnectionCommands {
                     "@Gui92720108");
             }catch(SQLException e){
         }
+        return _con; 
     }
     
     public void ReadData() throws SQLException{
