@@ -12,8 +12,8 @@ import java.sql.SQLException;
  * @author mapublic ctav
  */
 public class ConnectionCommands {
-    Connection _con = null ; 
-    Statement _stt = null; 
+    static Connection _con = null ; 
+    static Statement _stt = null; 
     
     
     public void Conector(){    
@@ -22,22 +22,27 @@ public class ConnectionCommands {
                     "jdbc:mysql://localhost:3306/dbinfoq",
                     "root",
                     "@Gui92720108");
-        }catch(SQLException e){
-            
+            }catch(SQLException e){
         }
     }
     
-    
-    public void ReadData(){
-        try {
-            if(_stt == null){ 
-                _stt = _con.createStatement();
-                ResultSet result = _stt.executeQuery("SELECT * FROM tbclientes"); 
-                while(result.next()){
-                    String name = result.getString("nomecli"); 
-                    System.out.println(name);
-                }   
-            }
-        }catch(SQLException e){}
+    public void ReadData() throws SQLException{
+        VerifyStatement();
+        ResultSet result = _stt.executeQuery("SELECT * FROM tbclientes"); 
+        while(result.next()){
+            String name = result.getString("nomecli"); 
+            System.out.println(name);
+        }
     }
+    
+    private void VerifyStatement() throws SQLException{
+        if(_stt == null){ 
+            CreateStatement();
+        }
+    }
+    
+    private void CreateStatement() throws SQLException{
+        _stt = _con.createStatement();
+    }
+    
 }       
